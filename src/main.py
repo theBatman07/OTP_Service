@@ -5,8 +5,6 @@ from datetime import datetime, timedelta
 
 app = FastAPI()
 
-# In-memory storage for OTP records.
-# For each phone number, we store the OTP details.
 otp_store = {}
 
 # Configuration
@@ -22,13 +20,13 @@ class OTPVerifyRequest(BaseModel):
     otp: str = Field(..., example="123456")
 
 def generate_otp() -> str:
-    """Generate a secure 6-digit OTP."""
+    """Generate a secure 4-digit OTP."""
     return f"{secrets.randbelow(10**4):04d}"
 
 @app.post("/otp/generate")
 def generate_otp_endpoint(request: OTPRequest):
     phone = request.phone_number
-    now = datetime.utcnow()
+    now = datetime.now(datetime.timezone.utc)
     
     # If an OTP already exists for this phone, check the resend delay.
     if phone in otp_store:
@@ -50,14 +48,12 @@ def generate_otp_endpoint(request: OTPRequest):
         "attempts": 0
     }
     
-    # In a real system, here you would trigger sending the OTP (via SMS or email)
-    # Remove OTP from the response when deploying to production.
     return {"detail": "OTP generated and sent.", "otp": otp_code}
 
 @app.post("/otp/resend")
 def resend_otp(request: OTPRequest):
     phone = request.phone_number
-    now = datetime.utcnow()
+    now = datetime.now(datetime.timezone.utc)
     
     if phone not in otp_store:
         raise HTTPException(
@@ -82,14 +78,13 @@ def resend_otp(request: OTPRequest):
         "attempts": 0
     })
     
-    # Again, in production remove OTP from the response.
     return {"detail": "OTP resent.", "otp": otp_code}
 
 @app.post("/otp/verify")
 def verify_otp(request: OTPVerifyRequest):
     phone = request.phone_number
     user_otp = request.otp
-    now = datetime.utcnow()
+    now = datetime.now(datetime.timezone.utc)
     
     if phone not in otp_store:
         raise HTTPException(
