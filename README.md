@@ -28,25 +28,21 @@ This project implements an OTP-based login service using FastAPI. It provides en
 2. **Set Up a Virtual Environment (Optional but Recommended):**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   On Windows use: venv\Scripts\activate
+   On Linux use: source venv/bin/activate  
    ```
 
 3. **Install Dependencies:**
-   Ensure you have a `requirements.txt` file containing:
-   ```plaintext
-   fastapi
-   uvicorn
-   ```
-   Then run:
+   Install all the required depencies by running the following command:
    ```bash
    pip install -r requirements.txt
    ```
 
 ## Running the Service
 
-Start the FastAPI service using Uvicorn by running the following command (assuming your main file is `main.py`):
+Start the FastAPI service using Uvicorn by running the following command:
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --reload
 ```
 This command starts the server with live reload enabled, so any code changes will automatically restart the server.
 
@@ -61,7 +57,7 @@ This command starts the server with live reload enabled, so any code changes wil
     "phone_number": "+1234567890"
   }
   ```
-- **Description:** Generates and (for demonstration purposes) returns a secure 4-digit OTP. In production, the OTP should be sent via SMS or email.
+- **Description:** Generates and (for demonstration purposes) returns a secure 4-digit OTP. (In production, the OTP should be sent via SMS or email.)
 
 ### Resend OTP
 - **URL:** `/otp/resend`
@@ -89,17 +85,3 @@ This command starts the server with live reload enabled, so any code changes wil
 ## Testing the API
 
 You can test the endpoints using tools like **Postman** or **cURL**.
-
-### Example cURL Request for Generating OTP:
-```bash
-curl -X POST "http://127.0.0.1:8000/otp/generate" \
-     -H "Content-Type: application/json" \
-     -d '{"phone_number": "+1234567890"}'
-```
-
-## Contributing
-Contributions are welcome! If you have suggestions or improvements, feel free to open an issue or submit a pull request.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
