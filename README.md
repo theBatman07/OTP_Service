@@ -21,8 +21,8 @@ This project implements an OTP-based login service using FastAPI. It provides en
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/yourusername/otp-service.git
-   cd otp-service
+   git clone https://github.com/theBatman07/OTP_Service.git
+   cd OTP_Service
    ```
 
 2. **Set Up a Virtual Environment (Optional but Recommended):**
