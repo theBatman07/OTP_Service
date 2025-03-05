@@ -27,7 +27,7 @@ This project implements an OTP-based login service using FastAPI. It provides en
 
 2. **Set Up a Virtual Environment (Optional but Recommended):**
    ```bash
-   python -m venv venv
+   python -m venv .venv
    On Windows use: venv\Scripts\activate
    On Linux use: source venv/bin/activate  
    ```
